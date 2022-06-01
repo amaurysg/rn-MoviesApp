@@ -3,10 +3,11 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreen} from '../screens/HomeScreen';
 import {DetailScreen} from '../screens/DetailScreen';
+import { Movies } from '../interface/movieDBInterface';
 
 export type RootStackParams = {
   HomeScreen: undefined;
-  DetailScreen: undefined;
+  DetailScreen: Movies;
 };
 
 const Stack = createStackNavigator<RootStackParams>();

@@ -10,7 +10,7 @@ interface Props {
 
 export const HorizontalSlider = ({title, movie}: Props) => {
   return (
-    <View style={{height: (title) ? 240 : 230 }}>
+    <View style={{height: (title) ? 250 : 230 }}>
       {title && <Text style={{marginLeft:10, fontSize:20, fontWeight:'bold', marginVertical:10}}>{title}</Text>}
       <FlatList
         data={movie}
@@ -19,6 +19,7 @@ export const HorizontalSlider = ({title, movie}: Props) => {
         )}
         keyExtractor={item => item.id.toString()}
         horizontal
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );
