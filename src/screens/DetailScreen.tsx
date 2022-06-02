@@ -1,7 +1,16 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { MovieDetails } from '../components/MovieDetails';
 import {useMoviesDetails} from '../hooks/useMoviesDetails';
 import {RootStackParams} from '../navigation/Navigation';
 
@@ -13,11 +22,10 @@ export const DetailScreen = ({route}: Props) => {
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   const {top} = useSafeAreaInsets();
   const {isLoading, movieFull, cast} = useMoviesDetails(movie.id);
-  console.log('movieFull::::::',movieFull)
-  console.log('cast::::::',cast)
-  console.log('>>>>>>>>', movie.id);
+
   return (
     <>
+          <ScrollView>
       <View style={styles.imageContainer}>
         <View style={styles.imageShadow}>
           <Image style={styles.image} source={{uri: uri}} />
@@ -28,7 +36,17 @@ export const DetailScreen = ({route}: Props) => {
           <Text style={styles.subtitle}>{movie.original_title}</Text>
           <Text style={styles.title}>{movie.title}</Text>
         </View>
+        <View style={styles.detailsContainer} >
+          {isLoading ? (
+            <ActivityIndicator
+              size={35}
+            ></ActivityIndicator>
+          ) : (
+              <MovieDetails movieFull={movieFull!} cast={cast!}/>
+          )}
+        </View>
       </View>
+      </ScrollView>
     </>
   );
 };
@@ -69,4 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
+  detailsContainer:{
+    paddingHorizontal:20
+  }
 });
